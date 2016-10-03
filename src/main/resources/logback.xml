@@ -30,13 +30,13 @@
 
 	<appender name="FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>D:/log/all.log</File>
+		<File>log/all.log</File>
 		<Append>true</Append>
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 			<level>INFO</level>
 		</filter>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<FileNamePattern>D:/log/all-%d{yyyy-MM-dd}.%i.log
+			<FileNamePattern>log/all-%d{yyyy-MM-dd}.%i.log
 			</FileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -51,7 +51,7 @@
 	<appender name="ERRORFILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<Append>true</Append>
-		<File>D:/log/error/error.log</File>
+		<File>log/error/error.log</File>
 		<encoder>
 			<charset>utf-8</charset>
 			<pattern>%d-%c-%t-%5p: %m%n</pattern>
@@ -60,7 +60,7 @@
 			<level>ERROR</level>
 		</filter>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<FileNamePattern>D:/log/error/error-%d{yyyy-MM-dd}.%i.log
+			<FileNamePattern>log/error/error-%d{yyyy-MM-dd}.%i.log
 			</FileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -72,7 +72,7 @@
 	<appender name="CODEC"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<Append>true</Append>
-		<File>D:/log/data/codec.log</File>
+		<File>log/data/codec.log</File>
 		<encoder>
 			<charset>utf-8</charset>
 			<pattern>%d-%c-%t-%5p: %m%n</pattern>
@@ -81,7 +81,7 @@
 			<level>INFO</level>
 		</filter>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<FileNamePattern>D:/log/data/codec-%d{yyyy-MM-dd}.%i.log
+			<FileNamePattern>log/data/codec-%d{yyyy-MM-dd}.%i.log
 			</FileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
