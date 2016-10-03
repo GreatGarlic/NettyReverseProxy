@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Nettyreverseproxy : 不同于Nginx的基于Netty和Spring的反向代理中间件">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Nettyreverseproxy</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/GreatGarlic/NettyReverseProxy">View on GitHub</a>
+
+          <h1 id="project_title">Nettyreverseproxy</h1>
+          <h2 id="project_tagline">不同于Nginx的基于Netty和Spring的反向代理中间件</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/GreatGarlic/NettyReverseProxy/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/GreatGarlic/NettyReverseProxy/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="nettyreverseproxy" class="anchor" href="#nettyreverseproxy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NettyReverseProxy</h1>
+
+<h2>
+<a id="解决的痛点" class="anchor" href="#%E8%A7%A3%E5%86%B3%E7%9A%84%E7%97%9B%E7%82%B9" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>解决的痛点</h2>
+
+<blockquote>
+<p>由于Nginx的反向代理只能代理后端服务器中的其中一个服务器，无法做到同时转发数据到后端多个服务器（一对N），所以此中间件由此需求产生。</p>
+</blockquote>
+
+<h2>
+<a id="特点" class="anchor" href="#%E7%89%B9%E7%82%B9" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>特点</h2>
+
+<blockquote>
+<p>1.支持一对N数据同时转发（解决Nginx同时只能转发后端一台服务器的问题）</p>
+
+<p>2.支持后端服务器断线重连（断线重连时间间隔可配置）</p>
+
+<p>3.无代码侵入，独立部署</p>
+</blockquote>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Nettyreverseproxy maintained by <a href="https://github.com/GreatGarlic">GreatGarlic</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
