@@ -15,6 +15,9 @@ public class AppConfig {
 	private String localPort;
 	@Value("${remote.Address}")
 	private String remoteAddress;
+	@Value("${connect.interval}")
+	private long interval;
+	
 
 	public List<String[]> getRemoteAddress() {
 
@@ -38,6 +41,15 @@ public class AppConfig {
 
 	public String getLocalPort() {
 		return localPort;
+	}
+	
+
+	public long getInterval() {
+		return interval;
+	}
+
+	public void setInterval(long interval) {
+		this.interval = interval;
 	}
 
 	public void setLocalPort(String localPort) {

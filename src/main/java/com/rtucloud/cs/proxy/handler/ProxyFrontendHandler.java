@@ -135,7 +135,7 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
 								public void run() {
 									ProxyFrontendHandler.this.createBootstrap(inboundChannel, host, port);
 								}
-							}, 1L, TimeUnit.SECONDS);
+							}, appConfig.getInterval(), TimeUnit.MILLISECONDS);
 						} else {
 							System.out.println("notActive");
 						}
