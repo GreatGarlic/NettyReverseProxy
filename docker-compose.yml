@@ -1,0 +1,13 @@
+version: '2'
+services:
+    netty-reverse-proxy:
+        build: ./
+        image: netty-reverse-proxy:1.0.0
+        restart: always
+        ports:
+            - "12001:5061"
+        container_name: netty-reverse-proxy
+        volumes:
+             - ./log:/mnt/NettyReverseProxy/App/log
+             - ./config:/mnt/NettyReverseProxy/App/config
+        user: root
