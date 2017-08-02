@@ -27,7 +27,7 @@
         <File>log/all.log</File>
         <Append>true</Append>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
+            <level>ALL</level>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>log/all-%d{yyyy-MM-dd,aux}/all-%d{yyyy-MM-dd}.%i.zip</FileNamePattern>
@@ -74,7 +74,7 @@
             <FileNamePattern>log/data/codec-%d{yyyy-MM-dd,aux}/codec-%d{yyyy-MM-dd}.%i.zip</FileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>1Kb</maxFileSize>
+                <maxFileSize>32MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
     </appender>
