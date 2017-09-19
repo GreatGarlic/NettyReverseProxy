@@ -5,7 +5,7 @@ services:
         image: netty-reverse-proxy:1.0.0
         restart: always
         ports:
-            - "12001:5061"
+            - "12001:12001"
         container_name: netty-reverse-proxy
         volumes:
              - ./log:/mnt/NettyReverseProxy/App/log
