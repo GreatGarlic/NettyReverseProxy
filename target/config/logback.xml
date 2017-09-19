@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration>
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <Target>System.out</Target>
+        <encoder>
+            <pattern>%d-%c-%t-%5p: %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- <appender name="Logstash"
+        class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>192.168.2.25:4560</destination>
+        <reconnectionDelay>1 second</reconnectionDelay>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>{"AppName":"刘源测试值守"}</customFields>
+        </encoder>
+    </appender> -->
+
+    <logger name="io.netty" level="error"/>
+    <logger name="org.springframework" level="error"/>
+
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>log/all.log</File>
+        <Append>true</Append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ALL</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>log/all-%d{yyyy-MM-dd,aux}/all-%d{yyyy-MM-dd}.%i.zip</FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>32MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <pattern>%d-%c-%t-%5p: %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="ERRORFILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Append>true</Append>
+        <File>log/error/error.log</File>
+        <encoder>
+            <charset>utf-8</charset>
+            <pattern>%d-%c-%t-%5p: %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>log/error/error-%d{yyyy-MM-dd,aux}/error-%d{yyyy-MM-dd}.%i.zip</FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>32MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="CODEC" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Append>true</Append>
+        <File>log/data/codec.log</File>
+        <encoder>
+            <charset>utf-8</charset>
+            <pattern>%d-%c-%t-%5p: %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>log/data/codec-%d{yyyy-MM-dd,aux}/codec-%d{yyyy-MM-dd}.%i.zip</FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>32MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <!--解码器异步输出 -->
+    <appender name="CodecAsyncFile"
+              class="net.logstash.logback.appender.LoggingEventAsyncDisruptorAppender">
+        <appender-ref ref="CODEC"/>
+    </appender>
+
+
+    <!-- 编解码器日志拦截 -->
+    <logger name="com.rtucloud.cs.proxy.codec">
+        <appender-ref ref="CodecAsyncFile"/>
+    </logger>
+
+    <!--所有日志异步输出 -->
+    <appender name="AsyncFile"
+              class="net.logstash.logback.appender.LoggingEventAsyncDisruptorAppender">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="ERRORFILE"/>
+    </appender>
+
+
+    <root level="DEBUG">
+        <appender-ref ref="AsyncFile"/>
+
+    </root>
+
+</configuration>  
