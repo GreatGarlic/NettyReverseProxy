@@ -9,4 +9,5 @@ services:
         container_name: netty-reverse-proxy
         volumes:
              - ./log:/mnt/NettyReverseProxy/App/log
+             - ./reverse_proxy.properties:/mnt/NettyReverseProxy/App/config/reverse_proxy.properties
         user: root
