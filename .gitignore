@@ -1,4 +1,3 @@
-#target/
 .project
 .classpath
 .settings/
@@ -7,3 +6,7 @@ log/
 *.iml
 .idea/
 logs/
+target/generated-sources/
+target/maven-archiver/
+target/maven-status/
+target/classes/
