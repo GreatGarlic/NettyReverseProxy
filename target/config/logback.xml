@@ -68,7 +68,7 @@
             <pattern>%d-%c-%t-%5p: %m%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
+            <level>DEBUG</level>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>log/data/codec-%d{yyyy-MM-dd,aux}/codec-%d{yyyy-MM-dd}.%i.zip</FileNamePattern>
