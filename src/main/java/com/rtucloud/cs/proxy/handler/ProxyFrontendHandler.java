@@ -126,7 +126,15 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
 
             bootstrap.handler(new BackendPipeline(inboundChannel, ProxyFrontendHandler.this, host, port));
 
+//            InetAddress ipAddress=  InetAddress.getByAddress(new byte[]{(byte)192,(byte)168,(byte)141,(byte)222});
+//
+//            InetAddress  remoteIpAddress=InetAddress.getByAddress(new byte[]{(byte)114,(byte)55,(byte)231,(byte)160});
+//
+//            InetSocketAddress localAddress= new InetSocketAddress(ipAddress,55555);
+//            InetSocketAddress remoteAddress= new InetSocketAddress(remoteIpAddress, port);
+
             ChannelFuture f = bootstrap.connect(host, port);
+//            ChannelFuture f = bootstrap.connect(remoteAddress, localAddress);
 
             f.addListener(new ChannelFutureListener() {
                 @Override
