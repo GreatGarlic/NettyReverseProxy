@@ -31,7 +31,7 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
     // 代理服务器和目标服务器之间的通道（从代理服务器出去所以是outbound过境）
     public ApplicationContext applicationContext;
     private volatile ChannelGroup allChannels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
-    private volatile Channel inboundChannel = null;
+    //private volatile Channel inboundChannel = null;
     private AppConfig appConfig;
     private volatile boolean frontendConnectStatus = false;
 
@@ -68,7 +68,7 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
          * 客户端和代理服务器的连接通道 入境的通道
          */
 
-        inboundChannel = ctx.channel();
+        Channel inboundChannel = ctx.channel();
 
         for (String[] str : remoteAddress) {
             createBootstrap(inboundChannel, str[0].trim(), Integer.valueOf(str[1].trim()));
@@ -117,7 +117,7 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
         closeOnFlush(ctx.channel());
     }
 
-    public void createBootstrap(Channel inboundChannel, String host, int port) {
+    public void createBootstrap(final Channel inboundChannel,final String host,final int port) {
         try {
             Bootstrap bootstrap = new Bootstrap();
 
@@ -126,15 +126,8 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
 
             bootstrap.handler(new BackendPipeline(inboundChannel, ProxyFrontendHandler.this, host, port));
 
-//            InetAddress ipAddress=  InetAddress.getByAddress(new byte[]{(byte)192,(byte)168,(byte)141,(byte)222});
-//
-//            InetAddress  remoteIpAddress=InetAddress.getByAddress(new byte[]{(byte)114,(byte)55,(byte)231,(byte)160});
-//
-//            InetSocketAddress localAddress= new InetSocketAddress(ipAddress,55555);
-//            InetSocketAddress remoteAddress= new InetSocketAddress(remoteIpAddress, port);
 
             ChannelFuture f = bootstrap.connect(host, port);
-//            ChannelFuture f = bootstrap.connect(remoteAddress, localAddress);
 
             f.addListener(new ChannelFutureListener() {
                 @Override
