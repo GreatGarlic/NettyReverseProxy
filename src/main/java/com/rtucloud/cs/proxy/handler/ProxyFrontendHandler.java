@@ -136,7 +136,7 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
                         allChannels.add(future.channel());
                     } else {
                         if (inboundChannel.isActive()) {
-                            System.out.println("Reconnect");
+                            log.info("Reconnect");
                             final EventLoop loop = future.channel().eventLoop();
                             loop.schedule(new Runnable() {
                                 @Override
@@ -145,7 +145,7 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
                                 }
                             }, appConfig.getInterval(), TimeUnit.MILLISECONDS);
                         } else {
-                            System.out.println("notActive");
+                            log.info("notActive");
                         }
                     }
                     inboundChannel.read();
