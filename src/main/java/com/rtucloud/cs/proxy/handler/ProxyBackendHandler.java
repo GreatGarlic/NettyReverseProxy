@@ -28,8 +28,6 @@ public class ProxyBackendHandler extends SimpleChannelInboundHandler<byte[]> {
 	// 当和目标服务器的通道连接建立时
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-//		LOGGER.info("服务器地址：" + ctx.channel().localAddress());
-
 		LOGGER.info("服务器地址：" + ctx.channel().remoteAddress());
 	}
 

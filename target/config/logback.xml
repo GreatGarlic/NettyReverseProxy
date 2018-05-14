@@ -19,8 +19,7 @@
         </encoder>
     </appender> -->
 
-    <logger name="io.netty" level="error"/>
-    <logger name="org.springframework" level="error"/>
+
 
     <appender name="FILE"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -99,6 +98,9 @@
         <appender-ref ref="ERRORFILE"/>
     </appender>
 
+
+    <logger name="io.netty" level="error"/>
+    <logger name="org.springframework" level="error"/>
 
     <root level="DEBUG">
         <appender-ref ref="AsyncFile"/>

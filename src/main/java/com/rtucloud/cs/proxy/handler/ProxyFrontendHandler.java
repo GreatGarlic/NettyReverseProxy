@@ -31,7 +31,6 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
     // 代理服务器和目标服务器之间的通道（从代理服务器出去所以是outbound过境）
     public ApplicationContext applicationContext;
     private volatile ChannelGroup allChannels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
-    //private volatile Channel inboundChannel = null;
     private AppConfig appConfig;
     private volatile boolean frontendConnectStatus = false;
 
@@ -90,15 +89,8 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
         allChannels.writeAndFlush(msg).addListener(new ChannelGroupFutureListener() {
             @Override
             public void operationComplete(ChannelGroupFuture future) throws Exception {
-
                 //防止出现发送不成功造成的永久不读取消息的错误.
                 ctx.channel().read();
-
-//                if (future.isSuccess()) {
-//
-//                } else {
-//                    ctx.channel().close();
-//                }
             }
         });
 
