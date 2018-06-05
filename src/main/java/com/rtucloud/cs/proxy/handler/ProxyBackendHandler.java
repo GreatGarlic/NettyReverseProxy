@@ -46,7 +46,7 @@ public class ProxyBackendHandler extends SimpleChannelInboundHandler<byte[]> {
 		 */
 		// 通过inboundChannel向客户端写入数据
 		inboundChannel.writeAndFlush(msg).addListener(new ChannelFutureListener() {
-
+			@Override
 			public void operationComplete(ChannelFuture future) throws Exception {
 				if (!future.isSuccess())
 					future.channel().close();
