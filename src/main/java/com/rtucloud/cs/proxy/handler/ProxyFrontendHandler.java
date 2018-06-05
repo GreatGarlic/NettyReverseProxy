@@ -106,10 +106,10 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         log.error("发生异常：", cause);
-        closeOnFlush(ctx.channel());
+        ctx.channel().close();
     }
 
-    public void createBootstrap(final Channel inboundChannel,final String host,final int port) {
+    public void createBootstrap(final Channel inboundChannel, final String host, final int port) {
         try {
             Bootstrap bootstrap = new Bootstrap();
 
