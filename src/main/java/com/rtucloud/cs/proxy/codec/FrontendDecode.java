@@ -14,9 +14,9 @@ import java.util.List;
  * 
  * 前端解码器.
  */
-public class FontendDecode extends ByteToMessageDecoder {
+public class FrontendDecode extends ByteToMessageDecoder {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(FontendDecode.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(FrontendDecode.class);
 
 	@Override
 	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {

@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
  * 
  * 后端编码器.
  */
-public class FontendEncode extends MessageToByteEncoder<byte[]> {
+public class FrontendEncode extends MessageToByteEncoder<byte[]> {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(FontendEncode.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(FrontendEncode.class);
 
 	@Override
 	protected void encode(ChannelHandlerContext ctx, byte[] msg, ByteBuf out) throws Exception {

@@ -7,13 +7,13 @@ import io.netty.channel.socket.SocketChannel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
-import com.rtucloud.cs.proxy.codec.FontendDecode;
-import com.rtucloud.cs.proxy.codec.FontendEncode;
+import com.rtucloud.cs.proxy.codec.FrontendDecode;
+import com.rtucloud.cs.proxy.codec.FrontendEncode;
 import com.rtucloud.cs.proxy.handler.ProxyFrontendHandler;
 
-public class FontendPipeline extends ChannelInitializer<SocketChannel> {
+public class FrontendPipeline extends ChannelInitializer<SocketChannel> {
 
-	public FontendPipeline() {
+	public FrontendPipeline() {
 	}
 
 	@Autowired
@@ -24,8 +24,8 @@ public class FontendPipeline extends ChannelInitializer<SocketChannel> {
 
 		ChannelPipeline pipeline = ch.pipeline();
 		// 注册handler
-		pipeline.addLast(new FontendDecode());
-		pipeline.addLast(new FontendEncode());
+		pipeline.addLast(new FrontendDecode());
+		pipeline.addLast(new FrontendEncode());
 		pipeline.addLast(new ProxyFrontendHandler(applicationContext));
 		
 	}

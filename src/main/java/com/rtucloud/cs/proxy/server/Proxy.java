@@ -20,9 +20,9 @@ public class Proxy {
 	@Autowired
 	public AppConfig appConfig;
 
-	FontendPipeline fontendPipeline;
+	FrontendPipeline frontendPipeline;
 
-	public void initFontend() {
+	public void initFrontend() {
 		
 		LOGGER.debug("启动服务，端口:"+appConfig.getLocalPort());
 
@@ -32,7 +32,7 @@ public class Proxy {
 			ServerBootstrap b = new ServerBootstrap();
 			b.group(bossGroup, workerGroup)
 			.channel(NioServerSocketChannel.class)
-			.childHandler(fontendPipeline)
+			.childHandler(frontendPipeline)
 			.childOption(ChannelOption.AUTO_READ, false);
 			
 			ChannelFuture f = b.bind(Integer.valueOf(appConfig.getLocalPort())).sync();
@@ -47,7 +47,7 @@ public class Proxy {
 		}
 	}
 
-	public void setFontendPipeline(FontendPipeline fontendPipeline) {
-		this.fontendPipeline = fontendPipeline;
+	public void setFrontendPipeline(FrontendPipeline frontendPipeline) {
+		this.frontendPipeline = frontendPipeline;
 	}
 }
