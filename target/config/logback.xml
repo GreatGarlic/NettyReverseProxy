@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<configuration>
+<configuration debug="true">
     <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -9,16 +9,6 @@
             <pattern>%d-%c-%t-%5p: %m%n</pattern>
         </encoder>
     </appender>
-
-    <!-- <appender name="Logstash"
-        class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>192.168.2.25:4560</destination>
-        <reconnectionDelay>1 second</reconnectionDelay>
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-            <customFields>{"AppName":"刘源测试值守"}</customFields>
-        </encoder>
-    </appender> -->
-
 
 
     <appender name="FILE"
