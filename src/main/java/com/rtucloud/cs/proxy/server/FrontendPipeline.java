@@ -10,7 +10,9 @@ import org.springframework.context.ApplicationContext;
 import com.rtucloud.cs.proxy.codec.FrontendDecode;
 import com.rtucloud.cs.proxy.codec.FrontendEncode;
 import com.rtucloud.cs.proxy.handler.ProxyFrontendHandler;
+import org.springframework.stereotype.Component;
 
+@Component("frontendPipeline")
 public class FrontendPipeline extends ChannelInitializer<SocketChannel> {
 
 	public FrontendPipeline() {

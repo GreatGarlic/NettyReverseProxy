@@ -1,0 +1,7 @@
+appConfig:
+  #本地端口
+  localPort: 9003
+  #服务器地址和端口
+  remoteAddress: 192.168.141.222:12000
+  #尝试重连间隔时间（单位:毫秒）
+  connectInterval: 1000

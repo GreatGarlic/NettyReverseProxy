@@ -1,6 +1,7 @@
 package com.rtucloud.cs.proxy.handler;
 
-import com.rtucloud.cs.proxy.server.AppConfig;
+
+import com.rtucloud.cs.proxy.config.AppConfig;
 import com.rtucloud.cs.proxy.server.BackendPipeline;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.Unpooled;

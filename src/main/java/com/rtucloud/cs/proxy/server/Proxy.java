@@ -1,5 +1,6 @@
 package com.rtucloud.cs.proxy.server;
 
+import com.rtucloud.cs.proxy.config.AppConfig;
 import com.rtucloud.cs.proxy.utils.ExecutorsUtils;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -18,9 +19,10 @@ public class Proxy {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Proxy.class);
     private static final String FRONTEND_PROXY_THREAD_NAME = "Frontend-Proxy-Server-Thread";
+
     @Autowired
     public AppConfig appConfig;
-
+    @Autowired
     FrontendPipeline frontendPipeline;
 
     public void initFrontend() {
