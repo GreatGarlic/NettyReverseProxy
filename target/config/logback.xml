@@ -89,7 +89,7 @@
     </appender>
 
 
-    <logger name="io.netty" level="error"/>
+    <logger name="io.netty" level="debug"/>
     <logger name="org.springframework" level="error"/>
 
     <root level="DEBUG">
