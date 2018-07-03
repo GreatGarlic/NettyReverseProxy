@@ -5,3 +5,20 @@ appConfig:
   remoteAddress: 192.168.141.222:12000
   #尝试重连间隔时间（单位:毫秒）
   connectInterval: 1000
+server:
+    # Server bind port
+    port: 9010
+
+spring.mvc.cors:
+    mappings:
+       "/**":
+           #Comma-separated list of origins to allow. '*' allows all origins. When not set,CORS support is disabled.
+           allowed-origins: "*"
+           #Comma-separated list of methods to allow. '*' allows all methods.
+           allowed-methods: "*"
+           #Comma-separated list of headers to allow in a request. '*' allows all headers.
+           allowed-headers: "*"
+           #How long, in seconds, the response from a pre-flight request can be cached by clients.
+           max-age: "1800"
+           #Set whether credentials are supported. When not set, credentials are not supported.
+           allow-credentials: "true"
