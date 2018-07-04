@@ -28,10 +28,12 @@
     </dependencyManagement>
 
     <dependencies>
+        <!--web组件-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!--测试组件-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -42,16 +44,19 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--配置处理组件-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-        <!-- logback 日志包 -->
+        <!-- AOP组件 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
+
+        <!--热部署组件-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -76,12 +81,7 @@
             <artifactId>logstash-logback-encoder</artifactId>
             <version>4.7</version>
         </dependency>
-        <!--单元测试框架 -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-        </dependency>
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>

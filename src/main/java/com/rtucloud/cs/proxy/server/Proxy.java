@@ -11,10 +11,12 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.concurrent.ExecutorService;
 
-
+@Component
 public class Proxy {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Proxy.class);
@@ -25,6 +27,7 @@ public class Proxy {
     @Autowired
     FrontendPipeline frontendPipeline;
 
+    @PostConstruct
     public void initFrontend() {
         ExecutorService executorService = ExecutorsUtils.newSingleThreadExecutor(FRONTEND_PROXY_THREAD_NAME);
         executorService.execute(new Runnable() {
