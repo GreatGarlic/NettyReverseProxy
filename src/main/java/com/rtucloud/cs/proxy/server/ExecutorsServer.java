@@ -27,7 +27,7 @@ public class ExecutorsServer {
     AppConfig appConfig;
 
     @Async("frontendWorkTaskExecutor")
-    public Future<String> taskOne() {
+    public Future<Boolean> initProxyServer() {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -36,16 +36,18 @@ public class ExecutorsServer {
                     .channel(NioServerSocketChannel.class)
                     .childHandler(frontendPipeline)
                     .childOption(ChannelOption.AUTO_READ, false);
-            ChannelFuture f = b.bind(0).sync();
-            LOGGER.debug("1端口" + ((InetSocketAddress) f.channel().localAddress()).getPort());
+            ChannelFuture f = b.bind(Integer.valueOf(appConfig.getLocalPort())).sync();
+            LOGGER.debug("启动代理服务,端口:" + ((InetSocketAddress) f.channel().localAddress()).getPort());
             f.channel().closeFuture().sync();
+        } catch (InterruptedException e) {
+            LOGGER.debug("代理服务关闭!");
         } catch (Exception e) {
-            LOGGER.error("1代理服务器启动失败", e);
+            LOGGER.error("代理服务启动失败!", e);
         } finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
         }
-        return new AsyncResult<String>("hello world !!!!");
+        return new AsyncResult<>(true);
     }
 
 }
