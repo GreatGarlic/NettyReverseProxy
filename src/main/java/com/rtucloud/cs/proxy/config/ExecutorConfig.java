@@ -13,7 +13,7 @@ import java.util.concurrent.Executor;
 public class ExecutorConfig {
 
     @Bean(name = "frontendWorkTaskExecutor")
-    public Executor newSingleThreadTaskExecutor() {
+    public Executor createFrontendWorkTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(1);
         executor.setMaxPoolSize(1);
