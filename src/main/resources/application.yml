@@ -9,6 +9,21 @@ server:
     # Server bind port
     port: 9010
 
+
+spring:
+  jpa:
+      generate-ddl: true
+      hibernate:
+        ddl-auto: update
+      database-platform: org.hibernate.dialect.SQLiteDialect
+      show-sql: true
+  datasource:
+      driver-class-name: org.sqlite.JDBC
+      url: jdbc:sqlite:D:\\springboot.db
+      username:
+      password:
+
+
 spring.mvc.cors:
     mappings:
        "/**":
