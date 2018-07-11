@@ -140,6 +140,7 @@
                                         <include>logback.xml</include>
                                         <include>*.properties</include>
                                         <include>*.yml</include>
+                                        <include>db/*.sql</include>
                                     </includes>
                                     <filtering>true</filtering>
                                 </resource>
@@ -189,6 +190,7 @@
                         <exclude>*.properties</exclude>
                         <exclude>*.yml</exclude>
                         <exclude>logback.xml</exclude>
+                        <exclude>db/</exclude>
                     </excludes>
                 </configuration>
             </plugin>
