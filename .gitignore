@@ -4,6 +4,7 @@
 log/
 .DS_Store
 *.iml
+*.db
 .idea/
 logs/
 target/generated-sources/
