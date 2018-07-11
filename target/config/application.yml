@@ -12,20 +12,21 @@ server:
 
 spring:
   jpa:
-      generate-ddl: true
+      generate-ddl: false
       hibernate:
-        ddl-auto: update
+        ddl-auto: none
       database-platform: org.hibernate.dialect.SQLiteDialect
       show-sql: true
+
   datasource:
       initialization-mode: never
       driver-class-name: org.sqlite.JDBC
       url: jdbc:sqlite:springboot.db
       username:
       password:
-      #data: classpath:db/data.sql
   flyway:
     enabled: true
+    baseline-on-migrate: true
     locations: classpath:db
 
 

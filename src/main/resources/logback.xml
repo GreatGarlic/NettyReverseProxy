@@ -18,11 +18,9 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ALL</level>
         </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <FileNamePattern>log/all-%d{yyyy-MM-dd,aux}/all-%d{yyyy-MM-dd}.%i.zip</FileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>32MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxFileSize>32MB</maxFileSize>
         </rollingPolicy>
         <encoder>
             <charset>utf-8</charset>
@@ -40,12 +38,9 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
         </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <FileNamePattern>log/error/error-%d{yyyy-MM-dd,aux}/error-%d{yyyy-MM-dd}.%i.zip</FileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy
-                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>32MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxFileSize>32MB</maxFileSize>
         </rollingPolicy>
     </appender>
 
@@ -57,14 +52,11 @@
             <pattern>%d-%c-%t-%5p: %m%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>DEBUG</level>
+            <level>ALL</level>
         </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <FileNamePattern>log/data/codec-%d{yyyy-MM-dd,aux}/codec-%d{yyyy-MM-dd}.%i.zip</FileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy
-                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>32MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxFileSize>32MB</maxFileSize>
         </rollingPolicy>
     </appender>
 
@@ -74,26 +66,33 @@
         <appender-ref ref="CODEC"/>
     </appender>
 
+    <!--编解码器日志拦截-->
+    <!--<logger name="com.rtucloud.gateway.device.manager.codec">-->
+    <!--<appender-ref ref="CODEC"/>-->
+    <!--</logger>-->
 
     <!-- 编解码器日志拦截 -->
     <logger name="com.rtucloud.cs.proxy.codec">
         <appender-ref ref="CodecAsyncFile"/>
     </logger>
 
+
     <!--所有日志异步输出 -->
-    <appender name="AsyncFile"
-              class="net.logstash.logback.appender.LoggingEventAsyncDisruptorAppender">
+    <!--<appender name="AsyncFile"-->
+    <!--class="net.logstash.logback.appender.LoggingEventAsyncDisruptorAppender">-->
+    <!--<appender-ref ref="CONSOLE"/>-->
+    <!--<appender-ref ref="FILE"/>-->
+    <!--<appender-ref ref="ERRORFILE"/>-->
+    <!--</appender>-->
+
+
+
+
+    <root level="DEBUG">
+        <!--<appender-ref ref="AsyncFile"/>-->
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="ERRORFILE"/>
-    </appender>
-
-
-    <logger name="io.netty" level="debug"/>
-    <logger name="org.springframework" level="error"/>
-
-    <root level="DEBUG">
-        <appender-ref ref="AsyncFile"/>
 
     </root>
 
