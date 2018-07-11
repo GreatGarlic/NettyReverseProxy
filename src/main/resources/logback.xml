@@ -84,8 +84,9 @@
     <!--<appender-ref ref="FILE"/>-->
     <!--<appender-ref ref="ERRORFILE"/>-->
     <!--</appender>-->
-
-
+    <logger name="io.netty" level="error"/>
+    <logger name="org.springframework" level="error"/>
+    <logger name="com.zaxxer.hikari" level="error"/>
 
 
     <root level="DEBUG">
