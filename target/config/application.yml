@@ -18,12 +18,16 @@ spring:
       database-platform: org.hibernate.dialect.SQLiteDialect
       show-sql: true
   datasource:
-      initialization-mode: always
+      initialization-mode: never
       driver-class-name: org.sqlite.JDBC
       url: jdbc:sqlite:springboot.db
       username:
       password:
-      data: classpath:db/data.sql
+      #data: classpath:db/data.sql
+  flyway:
+    enabled: true
+    locations: classpath:db
+
 
 
 
