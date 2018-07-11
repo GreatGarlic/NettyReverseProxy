@@ -1,4 +1,4 @@
-appConfig:
+app-config:
   #本地端口
   localPort: 9003
   #服务器地址和端口
@@ -18,10 +18,13 @@ spring:
       database-platform: org.hibernate.dialect.SQLiteDialect
       show-sql: true
   datasource:
+      initialization-mode: always
       driver-class-name: org.sqlite.JDBC
-      url: jdbc:sqlite:D:\\springboot.db
+      url: jdbc:sqlite:springboot.db
       username:
       password:
+      data: classpath:db/data.sql
+
 
 
 spring.mvc.cors:

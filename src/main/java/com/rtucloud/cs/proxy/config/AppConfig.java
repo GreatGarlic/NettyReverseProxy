@@ -10,7 +10,7 @@ import java.util.List;
  * 应用程序配置属性.
  */
 @Component("appConfig")
-@ConfigurationProperties(prefix = "appConfig")
+@ConfigurationProperties(prefix = "app-config")
 public class AppConfig {
 
 
