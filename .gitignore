@@ -11,3 +11,5 @@ target/generated-sources/
 target/maven-archiver/
 target/maven-status/
 target/classes/
+target/generated-test-sources/
+target/test-classes/
