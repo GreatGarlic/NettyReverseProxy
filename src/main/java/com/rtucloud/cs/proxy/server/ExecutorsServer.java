@@ -1,6 +1,7 @@
 package com.rtucloud.cs.proxy.server;
 
 import com.rtucloud.cs.proxy.config.AppConfig;
+import com.rtucloud.cs.proxy.dao.repository.FrontendPortRepository;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -25,6 +26,8 @@ public class ExecutorsServer {
     FrontendPipeline frontendPipeline;
     @Autowired
     AppConfig appConfig;
+    @Autowired
+    FrontendPortRepository frontendPortRepository;
 
     @Async("frontendWorkTaskExecutor")
     public Future<Boolean> initProxyServer() {
@@ -36,7 +39,7 @@ public class ExecutorsServer {
                     .channel(NioServerSocketChannel.class)
                     .childHandler(frontendPipeline)
                     .childOption(ChannelOption.AUTO_READ, false);
-            ChannelFuture f = b.bind(Integer.valueOf(appConfig.getLocalPort())).sync();
+            ChannelFuture f = b.bind(frontendPortRepository.findOne().getPort()).sync();
             LOGGER.debug("启动代理服务,端口:" + ((InetSocketAddress) f.channel().localAddress()).getPort());
             f.channel().closeFuture().sync();
         } catch (InterruptedException e) {

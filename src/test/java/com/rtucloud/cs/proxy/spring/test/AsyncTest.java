@@ -59,6 +59,7 @@ public class AsyncTest {
         BackendServerInfo backendServerInfo = new BackendServerInfo();
         backendServerInfo.setPort(666);
         backendServerRepository.save(backendServerInfo);
+        System.out.println(frontendPortRepository.findOne().getPort());
         System.out.println(frontendPortInfo.getId());
         System.out.println(backendServerInfo.getId());
     }
