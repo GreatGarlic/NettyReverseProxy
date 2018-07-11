@@ -1,0 +1,42 @@
+app-config:
+  #本地端口
+  localPort: 9003
+  #服务器地址和端口
+  remoteAddress: 192.168.141.222:12000
+  #尝试重连间隔时间（单位:毫秒）
+  interval: 1000
+server:
+    # Server bind port
+    port: 9010
+
+
+spring:
+  jpa:
+      generate-ddl: true
+      hibernate:
+        ddl-auto: update
+      database-platform: org.hibernate.dialect.SQLiteDialect
+      show-sql: true
+  datasource:
+      initialization-mode: always
+      driver-class-name: org.sqlite.JDBC
+      url: jdbc:sqlite:springboot.db
+      username:
+      password:
+      data: classpath:db/data.sql
+
+
+
+spring.mvc.cors:
+    mappings:
+       "/**":
+           #Comma-separated list of origins to allow. '*' allows all origins. When not set,CORS support is disabled.
+           allowed-origins: "*"
+           #Comma-separated list of methods to allow. '*' allows all methods.
+           allowed-methods: "*"
+           #Comma-separated list of headers to allow in a request. '*' allows all headers.
+           allowed-headers: "*"
+           #How long, in seconds, the response from a pre-flight request can be cached by clients.
+           max-age: "1800"
+           #Set whether credentials are supported. When not set, credentials are not supported.
+           allow-credentials: "true"
