@@ -1,12 +1,8 @@
 app-config:
-  #本地端口
-  localPort: 9003
-  #服务器地址和端口
-  remoteAddress: 192.168.141.222:12000
   #尝试重连间隔时间（单位:毫秒）
   interval: 1000
 server:
-    # Server bind port
+    # WebServer bind port
     port: 9010
 
 
@@ -16,8 +12,11 @@ spring:
       hibernate:
         ddl-auto: none
       database-platform: org.hibernate.dialect.SQLiteDialect
-      show-sql: true
-
+      properties:
+        hibernate:
+          show_sql: true
+          format_sql: true
+          use_sql_comments: true
   datasource:
       initialization-mode: never
       driver-class-name: org.sqlite.JDBC
@@ -28,8 +27,6 @@ spring:
     enabled: true
     baseline-on-migrate: true
     locations: classpath:db
-
-
 
 
 spring.mvc.cors:

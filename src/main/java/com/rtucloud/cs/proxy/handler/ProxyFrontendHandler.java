@@ -2,6 +2,8 @@ package com.rtucloud.cs.proxy.handler;
 
 
 import com.rtucloud.cs.proxy.config.AppConfig;
+import com.rtucloud.cs.proxy.dao.entity.BackendServerInfo;
+import com.rtucloud.cs.proxy.dao.repository.BackendServerRepository;
 import com.rtucloud.cs.proxy.server.BackendPipeline;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.Unpooled;
@@ -33,11 +35,13 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
     public ApplicationContext applicationContext;
     private volatile ChannelGroup allChannels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     private AppConfig appConfig;
+    private BackendServerRepository backendServerRepository;
     private volatile boolean frontendConnectStatus = false;
 
     public ProxyFrontendHandler(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
         this.appConfig = applicationContext.getBean(AppConfig.class);
+        this.backendServerRepository = applicationContext.getBean(BackendServerRepository.class);
     }
 
     /**
@@ -62,16 +66,15 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
         SocketAddress clientAddress = ctx.channel().remoteAddress();
         log.info("客户端地址：" + clientAddress);
 
-        List<String[]> remoteAddress = appConfig.getRemoteAddress();
+        List<BackendServerInfo> backendServerInfoList = backendServerRepository.findAll();
 
         /**
          * 客户端和代理服务器的连接通道 入境的通道
          */
-
         Channel inboundChannel = ctx.channel();
 
-        for (String[] str : remoteAddress) {
-            createBootstrap(inboundChannel, str[0].trim(), Integer.valueOf(str[1].trim()));
+        for (BackendServerInfo backendServerInfo : backendServerInfoList) {
+            createBootstrap(inboundChannel, backendServerInfo.getIp(), backendServerInfo.getPort());
         }
     }
 

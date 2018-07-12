@@ -14,6 +14,7 @@ public class BackendServerInfo {
     @GeneratedValue(generator = "backendServerIdGenerator")
     @GenericGenerator(name = "backendServerIdGenerator", strategy = "native")
     private String id;
+    private String ip;
     private int port;
 
     public String getId() {
@@ -22,6 +23,14 @@ public class BackendServerInfo {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
     public int getPort() {
