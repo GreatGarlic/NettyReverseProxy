@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.concurrent.Future;
 
 @Component
@@ -21,6 +22,7 @@ public class ProxyServer {
         }
     }
 
+    @PreDestroy
     public synchronized void stopProxyServer() {
         if (future != null && (!future.isDone())) {
             future.cancel(true);
