@@ -5,7 +5,6 @@ import com.rtucloud.cs.proxy.config.AppConfig;
 import com.rtucloud.cs.proxy.dao.entity.BackendServerInfo;
 import com.rtucloud.cs.proxy.dao.repository.BackendServerRepository;
 import com.rtucloud.cs.proxy.server.BackendPipeline;
-import com.rtucloud.cs.proxy.utils.ApplicationContextUtil;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
@@ -22,25 +21,29 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.net.SocketAddress;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@Component
+@Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
 
     private static final Logger log = LoggerFactory.getLogger(ProxyFrontendHandler.class);
 
     // 代理服务器和目标服务器之间的通道（从代理服务器出去所以是outbound过境）
     private volatile ChannelGroup allChannels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+    @Autowired
     private AppConfig appConfig;
+    @Autowired
     private BackendServerRepository backendServerRepository;
     private volatile boolean frontendConnectStatus = false;
 
-    public ProxyFrontendHandler() {
-        this.appConfig = ApplicationContextUtil.getBean(AppConfig.class);
-        this.backendServerRepository = ApplicationContextUtil.getBean(BackendServerRepository.class);
-    }
 
     /**
      * Closes the specified channel after all queued write requests are flushed.
