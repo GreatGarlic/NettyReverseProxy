@@ -48,27 +48,45 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
         </dependency>
         <!--ORM组件-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <!--Hibernate and joda-time data type bind-->
+        <dependency>
+            <groupId>org.jadira.usertype</groupId>
+            <artifactId>usertype.core</artifactId>
+            <version>6.0.1.GA</version>
+        </dependency>
 
         <!--热部署组件-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
         </dependency>
-
+        <!--时间组件-->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
         <!--网络应用程序框架 -->
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.25.Final</version>
         </dependency>
+        <!-- Jackson and joda-time json data bind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-joda</artifactId>
+        </dependency>
+
+
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
