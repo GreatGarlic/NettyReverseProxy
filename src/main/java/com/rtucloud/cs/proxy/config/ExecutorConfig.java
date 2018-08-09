@@ -21,7 +21,6 @@ public class ExecutorConfig {
         executor.setQueueCapacity(0);
         executor.setDaemon(true);
         executor.setThreadNamePrefix("frontendWorkTaskExecutor-");
-        executor.initialize();
         return executor;
     }
 }
