@@ -1,6 +1,7 @@
 package com.rtucloud.cs.proxy.server;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -8,6 +9,7 @@ import javax.annotation.PreDestroy;
 import java.util.concurrent.Future;
 
 @Component
+@DependsOn("flywayInitializer")
 public class ProxyServer {
 
     @Autowired
