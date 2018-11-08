@@ -6,7 +6,8 @@
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <Target>System.out</Target>
         <encoder>
-            <pattern>%d-%c-%t-%5p: %m%n</pattern>
+            <pattern>%d-%c-%M-%t-%p: %m%n</pattern>
+            <!--<pattern>%d-%replace(%caller{1}){'\r\n',''}-%t-%p: %m%n</pattern>-->
         </encoder>
     </appender>
 
@@ -24,7 +25,7 @@
         </rollingPolicy>
         <encoder>
             <charset>utf-8</charset>
-            <pattern>%d-%c-%t-%5p: %m%n</pattern>
+            <pattern>%d-%c-%M-%t-%p: %m%n</pattern>
         </encoder>
     </appender>
     <appender name="ERRORFILE"
@@ -33,7 +34,7 @@
         <File>log/error/error.log</File>
         <encoder>
             <charset>utf-8</charset>
-            <pattern>%d-%c-%t-%5p: %m%n</pattern>
+            <pattern>%d-%c-%M-%t-%p: %m%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
@@ -49,7 +50,7 @@
         <File>log/data/codec.log</File>
         <encoder>
             <charset>utf-8</charset>
-            <pattern>%d-%c-%t-%5p: %m%n</pattern>
+            <pattern>%d-%c-%M-%t-%p: %m%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ALL</level>
@@ -87,6 +88,13 @@
     <logger name="io.netty" level="error"/>
     <logger name="org.springframework" level="error"/>
     <logger name="com.zaxxer.hikari" level="error"/>
+    <logger name="reactor" level="error"/>
+    <logger name="de.codecentric" level="error"/>
+    <logger name="org.hibernate" level="error"/>
+    <logger name="org.thymeleaf" level="error"/>
+    <logger name="org.apache.juli" level="off"/>
+
+
 
 
     <root level="DEBUG">
