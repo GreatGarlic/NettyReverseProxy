@@ -1,22 +1,18 @@
 package com.rtucloud.cs.proxy.dao.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 
 
-@Entity
-@Table(name = "frontend_port_info")
+@TableName("frontend_port_info")
 public class FrontendPortInfo {
 
-    @Id
-    @GeneratedValue(generator = "frontendPortIdGenerator")
-    @GenericGenerator(name = "frontendPortIdGenerator", strategy = "native")
+    @TableId(value = "id", type = IdType.AUTO)
     private String id;
-    private int port;
+    @TableField(value = "port")
+    private  int port;
 
     public String getId() {
         return id;

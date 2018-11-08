@@ -1,6 +1,8 @@
 package com.rtucloud.cs.proxy.server;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rtucloud.cs.proxy.config.AppConfig;
+import com.rtucloud.cs.proxy.dao.entity.FrontendPortInfo;
 import com.rtucloud.cs.proxy.dao.repository.FrontendPortRepository;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -39,7 +41,11 @@ public class ExecutorsServer {
                     .channel(NioServerSocketChannel.class)
                     .childHandler(frontendPipeline)
                     .childOption(ChannelOption.AUTO_READ, false);
-            ChannelFuture f = b.bind(frontendPortRepository.findOne().getPort()).sync();
+            Page<FrontendPortInfo> page = new Page<>(1, 1);
+            //这里设置不进行count查询
+            page.setTotal(1);
+            FrontendPortInfo frontendPortInfo = frontendPortRepository.selectPage(page, null).getRecords().get(0);
+            ChannelFuture f = b.bind(frontendPortInfo.getPort()).sync();
             LOGGER.debug("启动代理服务,端口:" + ((InetSocketAddress) f.channel().localAddress()).getPort());
             f.channel().closeFuture().sync();
         } catch (InterruptedException e) {

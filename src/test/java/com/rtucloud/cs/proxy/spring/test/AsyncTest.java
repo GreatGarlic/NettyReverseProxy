@@ -1,5 +1,6 @@
 package com.rtucloud.cs.proxy.spring.test;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rtucloud.cs.proxy.StartProgram;
 import com.rtucloud.cs.proxy.dao.entity.BackendServerInfo;
 import com.rtucloud.cs.proxy.dao.entity.FrontendPortInfo;
@@ -54,12 +55,15 @@ public class AsyncTest {
         FrontendPortInfo frontendPortInfo = new FrontendPortInfo();
 //        frontendPortInfo.setId(6);
         frontendPortInfo.setPort(500);
-        frontendPortRepository.save(frontendPortInfo);
+        frontendPortRepository.insert(frontendPortInfo);
 
         BackendServerInfo backendServerInfo = new BackendServerInfo();
         backendServerInfo.setPort(666);
-        backendServerRepository.save(backendServerInfo);
-        System.out.println(frontendPortRepository.findOne().getPort());
+        backendServerRepository.insert(backendServerInfo);
+        Page<FrontendPortInfo> page = new Page<>(1, 1);
+        page.setOptimizeCountSql(false);
+        frontendPortInfo = frontendPortRepository.selectPage(page, null).getRecords().get(0);
+        System.out.println(frontendPortInfo.getPort());
         System.out.println(frontendPortInfo.getId());
         System.out.println(backendServerInfo.getId());
     }

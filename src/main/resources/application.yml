@@ -7,16 +7,16 @@ server:
 
 
 spring:
-  jpa:
-      generate-ddl: false
-      hibernate:
-        ddl-auto: none
-      database-platform: org.hibernate.dialect.SQLiteDialect
-      properties:
-        hibernate:
-          show_sql: true
-          format_sql: true
-          use_sql_comments: true
+#  jpa:
+#      generate-ddl: false
+#      hibernate:
+#        ddl-auto: none
+#      database-platform: org.hibernate.dialect.SQLiteDialect
+#      properties:
+#        hibernate:
+#          show_sql: true
+#          format_sql: true
+#          use_sql_comments: true
 
   datasource:
       initialization-mode: never
@@ -52,3 +52,7 @@ management:
       show-details: ALWAYS
 logging:
   file: log/all.log
+
+mybatis-plus:
+  mapper-locations: classpath:com/rtucloud/cs/proxy/dao/mapper/*.xml
+  config-location: classpath:mybatis-config.xml

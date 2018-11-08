@@ -67,7 +67,7 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
         SocketAddress clientAddress = ctx.channel().remoteAddress();
         log.info("客户端地址：" + clientAddress);
 
-        List<BackendServerInfo> backendServerInfoList = backendServerRepository.findAll();
+        List<BackendServerInfo> backendServerInfoList = backendServerRepository.selectList(null);
 
         /**
          * 客户端和代理服务器的连接通道 入境的通道
