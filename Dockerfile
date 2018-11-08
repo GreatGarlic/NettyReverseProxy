@@ -19,9 +19,9 @@ FROM operating_system
 
 MAINTAINER liuyuan <405653510@qq.com>
 
-ADD ./target/  /mnt/NettyReverseProxy/App/
+ADD ./target/  /opt/NettyReverseProxy/App/
 
-WORKDIR /mnt/NettyReverseProxy/App/
+WORKDIR /opt/NettyReverseProxy/App/
 
 ENTRYPOINT ["java", "-jar"]
 

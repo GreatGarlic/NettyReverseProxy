@@ -3,7 +3,7 @@ app-config:
   interval: 1000
 server:
     # WebServer bind port
-    port: 9010
+    port: ${web_port:9010}
 
 
 spring:
