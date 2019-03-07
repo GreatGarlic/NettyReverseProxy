@@ -93,6 +93,7 @@
     <logger name="org.hibernate" level="error"/>
     <logger name="org.thymeleaf" level="error"/>
     <logger name="org.apache.juli" level="off"/>
+    <logger name="org.apache.catalina" level="off"/>
 
 
 
