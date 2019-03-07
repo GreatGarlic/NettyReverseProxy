@@ -11,5 +11,4 @@ services:
     network_mode: "host"
     volumes:
     - ./log:/opt/NettyReverseProxy/App/log
-    - ./reverse_proxy.properties:/opt/NettyReverseProxy/App/config/reverse_proxy.properties
     user: root
