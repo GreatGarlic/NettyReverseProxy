@@ -5,7 +5,6 @@ server:
     # WebServer bind port
     port: ${web_port:9010}
 
-
 spring:
 
   datasource:
@@ -27,7 +26,8 @@ spring:
         url: http://localhost:${server.port}/admin
         instance:
           prefer-ip: true
-
+          #用于向SBA推送监控端点的位置的属性
+          serviceBaseUrl: http://localhost:${server.port}
 
   flyway:
     enabled: true

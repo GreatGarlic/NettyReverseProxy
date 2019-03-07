@@ -42,6 +42,8 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+  server:
+    address: localhost
 logging:
   file: log/all.log
 
