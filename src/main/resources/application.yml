@@ -25,6 +25,8 @@ spring:
         status-lifetime: 1000ms
       client:
         url: http://localhost:${server.port}/admin
+        instance:
+          prefer-ip: true
 
 
   flyway:
