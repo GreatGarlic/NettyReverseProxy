@@ -155,7 +155,7 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
             });
 
         } catch (Exception e) {
-
+            log.error("连接后台服务失败",e);
         }
     }
 
