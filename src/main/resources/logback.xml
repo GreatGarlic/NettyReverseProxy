@@ -79,12 +79,11 @@
 
 
     <!--所有日志异步输出 -->
-    <!--<appender name="AsyncFile"-->
-    <!--class="net.logstash.logback.appender.LoggingEventAsyncDisruptorAppender">-->
-    <!--<appender-ref ref="CONSOLE"/>-->
-    <!--<appender-ref ref="FILE"/>-->
-    <!--<appender-ref ref="ERRORFILE"/>-->
-    <!--</appender>-->
+    <appender name="AsyncFile" class="net.logstash.logback.appender.LoggingEventAsyncDisruptorAppender">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="ERRORFILE"/>
+    </appender>
     <logger name="io.netty" level="error"/>
     <logger name="org.springframework" level="error"/>
     <logger name="com.zaxxer.hikari" level="error"/>
@@ -96,13 +95,11 @@
     <logger name="org.apache.catalina" level="off"/>
 
 
-
-
     <root level="DEBUG">
-        <!--<appender-ref ref="AsyncFile"/>-->
-        <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE"/>
-        <appender-ref ref="ERRORFILE"/>
+        <appender-ref ref="AsyncFile"/>
+        <!--        <appender-ref ref="CONSOLE"/>-->
+        <!--        <appender-ref ref="FILE"/>-->
+        <!--        <appender-ref ref="ERRORFILE"/>-->
 
     </root>
 
