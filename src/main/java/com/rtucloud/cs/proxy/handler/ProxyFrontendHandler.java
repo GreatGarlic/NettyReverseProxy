@@ -12,11 +12,13 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.EventLoop;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.ChannelGroupFuture;
 import io.netty.channel.group.ChannelGroupFutureListener;
 import io.netty.channel.group.DefaultChannelGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import org.slf4j.Logger;
@@ -35,7 +37,7 @@ import java.util.concurrent.TimeUnit;
 public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
 
     private static final Logger log = LoggerFactory.getLogger(ProxyFrontendHandler.class);
-
+    private static final EventLoopGroup proxyGroup = new NioEventLoopGroup();
     // 代理服务器和目标服务器之间的通道（从代理服务器出去所以是outbound过境）
     private volatile ChannelGroup allChannels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     private volatile Channel channel;
@@ -94,7 +96,7 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
 
         log.info("客户端消息");
 //        allChannels.writeAndFlush(msg).addListener(new ChannelGroupFutureListener() {
-            channel.writeAndFlush(msg).addListener(new ChannelGroupFutureListener() {
+        channel.writeAndFlush(msg).addListener(new ChannelGroupFutureListener() {
             @Override
             public void operationComplete(ChannelGroupFuture future) throws Exception {
                 //防止出现发送不成功造成的永久不读取消息的错误.
@@ -122,7 +124,9 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
         try {
             Bootstrap bootstrap = new Bootstrap();
 
-            bootstrap.group(inboundChannel.eventLoop());
+//            bootstrap.group(inboundChannel.eventLoop());
+            bootstrap.group(proxyGroup);
+
             bootstrap.channel(NioSocketChannel.class);
 
             bootstrap.handler(new BackendPipeline(inboundChannel, ProxyFrontendHandler.this, host, port));
@@ -135,7 +139,7 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
                 public void operationComplete(ChannelFuture future) throws Exception {
                     if (future.isSuccess()) {
 //                        allChannels.add(future.channel());
-                        channel=future.channel();
+                        channel = future.channel();
                     } else {
                         if (inboundChannel.isActive()) {
                             log.info("Reconnect");
@@ -155,7 +159,7 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
             });
 
         } catch (Exception e) {
-            log.error("连接后台服务失败",e);
+            log.error("连接后台服务失败", e);
         }
     }
 
