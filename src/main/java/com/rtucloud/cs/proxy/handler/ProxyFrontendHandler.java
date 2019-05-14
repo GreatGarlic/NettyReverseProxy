@@ -20,7 +20,7 @@ import io.netty.channel.group.ChannelGroupFutureListener;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.util.concurrent.GlobalEventExecutor;
+import io.netty.util.concurrent.ImmediateEventExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +39,7 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
     private static final Logger log = LoggerFactory.getLogger(ProxyFrontendHandler.class);
     private static final EventLoopGroup proxyGroup = new NioEventLoopGroup();
     // 代理服务器和目标服务器之间的通道（从代理服务器出去所以是outbound过境）
-    private ChannelGroup allChannels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
-    private volatile Channel channel;
+    private ChannelGroup allChannels = new DefaultChannelGroup(ImmediateEventExecutor.INSTANCE);
 
     @Autowired
     private AppConfig appConfig;
