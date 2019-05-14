@@ -95,8 +95,8 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
     public void channelRead0(final ChannelHandlerContext ctx, byte[] msg) throws Exception {
 
         log.info("客户端消息");
-//        allChannels.writeAndFlush(msg).addListener(new ChannelGroupFutureListener() {
-        channel.writeAndFlush(msg).addListener(new ChannelGroupFutureListener() {
+        allChannels.writeAndFlush(msg).addListener(new ChannelGroupFutureListener() {
+//        channel.writeAndFlush(msg).addListener(new ChannelGroupFutureListener() {
             @Override
             public void operationComplete(ChannelGroupFuture future) throws Exception {
                 //防止出现发送不成功造成的永久不读取消息的错误.
@@ -110,8 +110,8 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         log.info("代理服务器和客户端断开连接");
         frontendConnectStatus = false;
-//        allChannels.close();
-        channel.close();
+        allChannels.close();
+//        channel.close();
     }
 
     @Override
@@ -138,8 +138,8 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
                 @Override
                 public void operationComplete(ChannelFuture future) throws Exception {
                     if (future.isSuccess()) {
-//                        allChannels.add(future.channel());
-                        channel = future.channel();
+                        allChannels.add(future.channel());
+//                        channel = future.channel();
                     } else {
                         if (inboundChannel.isActive()) {
                             log.info("Reconnect");

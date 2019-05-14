@@ -62,10 +62,10 @@
     </appender>
 
     <!--解码器异步输出 -->
-    <appender name="CodecAsyncFile"
-              class="net.logstash.logback.appender.LoggingEventAsyncDisruptorAppender">
-        <appender-ref ref="CODEC"/>
-    </appender>
+<!--    <appender name="CodecAsyncFile"-->
+<!--              class="net.logstash.logback.appender.LoggingEventAsyncDisruptorAppender">-->
+<!--        <appender-ref ref="CODEC"/>-->
+<!--    </appender>-->
 
     <!--编解码器日志拦截-->
     <!--<logger name="com.rtucloud.gateway.device.manager.codec">-->
@@ -73,9 +73,9 @@
     <!--</logger>-->
 
     <!-- 编解码器日志拦截 -->
-    <logger name="com.rtucloud.cs.proxy.codec">
-        <appender-ref ref="CodecAsyncFile"/>
-    </logger>
+<!--    <logger name="com.rtucloud.cs.proxy.codec">-->
+<!--        <appender-ref ref="CodecAsyncFile"/>-->
+<!--    </logger>-->
 
 
     <!--所有日志异步输出 -->
@@ -97,9 +97,9 @@
 
     <root level="DEBUG">
         <appender-ref ref="AsyncFile"/>
-        <!--        <appender-ref ref="CONSOLE"/>-->
-        <!--        <appender-ref ref="FILE"/>-->
-        <!--        <appender-ref ref="ERRORFILE"/>-->
+<!--                <appender-ref ref="CONSOLE"/>-->
+<!--                <appender-ref ref="FILE"/>-->
+<!--                <appender-ref ref="ERRORFILE"/>-->
 
     </root>
 
