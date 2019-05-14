@@ -95,7 +95,6 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
 
         log.info("客户端消息");
         allChannels.writeAndFlush(msg).addListener(new ChannelGroupFutureListener() {
-            //        channel.writeAndFlush(msg).addListener(new ChannelGroupFutureListener() {
             @Override
             public void operationComplete(ChannelGroupFuture future) throws Exception {
                 //防止出现发送不成功造成的永久不读取消息的错误.
@@ -110,7 +109,6 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
         log.info("代理服务器和客户端断开连接");
         frontendConnectStatus = false;
         allChannels.close();
-//        channel.close();
     }
 
     @Override
@@ -123,7 +121,6 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
         try {
             Bootstrap bootstrap = new Bootstrap();
 
-//            bootstrap.group(inboundChannel.eventLoop());
             bootstrap.group(proxyGroup);
 
             bootstrap.channel(NioSocketChannel.class);
@@ -138,7 +135,6 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
                 public void operationComplete(ChannelFuture future) throws Exception {
                     if (future.isSuccess()) {
                         allChannels.add(future.channel());
-//                        channel = future.channel();
                     } else {
                         if (inboundChannel.isActive()) {
                             log.info("Reconnect");
