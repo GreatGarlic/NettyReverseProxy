@@ -1,5 +1,9 @@
 package com.rtucloud.cs.proxy.handler;
 
+import com.rtucloud.cs.proxy.StartProgram;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
+import io.netty.util.Attribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +32,8 @@ public class ProxyBackendHandler extends SimpleChannelInboundHandler<byte[]> {
 	// 当和目标服务器的通道连接建立时
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		LOGGER.info("服务器地址：" + ctx.channel().remoteAddress());
+
+		LOGGER.info("目标服务器地址：" + ctx.channel().remoteAddress());
 	}
 
 	/**
@@ -57,7 +62,8 @@ public class ProxyBackendHandler extends SimpleChannelInboundHandler<byte[]> {
 
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		LOGGER.info("关闭服务器连接");
+		LOGGER.info("目标服务器关闭连接");
+
 		if (proxyFrontendHandler.isConnect()) {
 			proxyFrontendHandler.createBootstrap(inboundChannel, host, port);
 		}
@@ -67,5 +73,18 @@ public class ProxyBackendHandler extends SimpleChannelInboundHandler<byte[]> {
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 		LOGGER.error("发生异常：", cause);
 		ctx.channel().close();
+	}
+
+
+
+	@Override
+	public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+		if (evt instanceof IdleStateEvent) {
+			IdleStateEvent e = (IdleStateEvent) evt;
+			if (e.state() == IdleState.ALL_IDLE) {
+					LOGGER.debug("空闲时间到，关闭连接.");
+					ctx.channel().close();
+			}
+		}
 	}
 }

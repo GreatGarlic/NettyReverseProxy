@@ -9,6 +9,9 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.timeout.IdleStateHandler;
+
+import java.util.concurrent.TimeUnit;
 
 public class BackendPipeline extends ChannelInitializer<SocketChannel> {
 
@@ -29,6 +32,8 @@ public class BackendPipeline extends ChannelInitializer<SocketChannel> {
 
 		ChannelPipeline pipeline = ch.pipeline();
 		// 注册handler
+		pipeline.addLast("idleStateHandler", new IdleStateHandler(0, 0, 2,
+				TimeUnit.MINUTES));
 		pipeline.addLast(new BackendDecode());
 		pipeline.addLast(new BackendEncode());
 		pipeline.addLast(new ProxyBackendHandler(inboundChannel,proxyFrontendHandler,host,port));

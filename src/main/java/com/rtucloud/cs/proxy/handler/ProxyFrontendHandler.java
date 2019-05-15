@@ -26,6 +26,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -107,7 +108,7 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         log.info("代理服务器和客户端断开连接");
         frontendConnectStatus = false;
-        allChannels.close();
+//        allChannels.close();
     }
 
     @Override
@@ -129,11 +130,14 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
 
             ChannelFuture f = bootstrap.connect(host, port);
 
+
             f.addListener(new ChannelFutureListener() {
                 @Override
                 public void operationComplete(ChannelFuture future) throws Exception {
+
                     if (future.isSuccess()) {
                         allChannels.add(future.channel());
+
                     } else {
                         if (inboundChannel.isActive()) {
                             log.info("Reconnect");

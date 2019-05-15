@@ -5,6 +5,7 @@ import io.netty.buffer.ByteBufUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 
+import java.net.SocketAddress;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -24,8 +25,7 @@ public class BackendDecode extends ByteToMessageDecoder {
 		if (!in.isReadable()) {
 			return;
 		}
-		LOGGER.info(String.format("收到的的报文:[%s]", ByteBufUtil.hexDump(in)));
-
+		LOGGER.info(String.format("[%d]收到数据:%s",  ByteBufUtil.hexDump(in)));
 		byte[] ss = new byte[in.readableBytes()];
 
 		in.readBytes(ss);

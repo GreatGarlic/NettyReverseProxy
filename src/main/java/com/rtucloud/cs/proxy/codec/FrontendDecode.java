@@ -10,6 +10,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.net.InetSocketAddress;
 import java.util.List;
 
 /**
@@ -27,8 +28,7 @@ public class FrontendDecode extends ByteToMessageDecoder {
         if (!in.isReadable()) {
             return;
         }
-        LOGGER.info(String.format("收到的的报文:[%s]", ByteBufUtil.hexDump(in)));
-
+        LOGGER.info(String.format("[%s]收到数据:%s",  (ctx.channel().remoteAddress()).toString(), ByteBufUtil.hexDump(in)));
         byte[] ss = new byte[in.readableBytes()];
 
         in.readBytes(ss);

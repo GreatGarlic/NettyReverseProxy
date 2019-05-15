@@ -18,7 +18,7 @@ public class BackendEncode extends MessageToByteEncoder<byte[]> {
 
 	@Override
 	protected void encode(ChannelHandlerContext ctx, byte[] msg, ByteBuf out) throws Exception {
-		LOGGER.info(String.format("发送出的报文:[%s]",ByteBufUtil.hexDump((byte[]) msg)));
+		LOGGER.info(String.format("[%s]发送出的报文:[%s]",(ctx.channel().remoteAddress()).toString(),ByteBufUtil.hexDump((byte[]) msg)));
 		out.writeBytes(msg);
 	}
 }
