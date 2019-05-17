@@ -64,9 +64,9 @@ public class ProxyBackendHandler extends SimpleChannelInboundHandler<byte[]> {
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		LOGGER.info("目标服务器关闭连接");
 
-		if (proxyFrontendHandler.isConnect()) {
-			proxyFrontendHandler.createBootstrap(inboundChannel, host, port);
-		}
+//		if (proxyFrontendHandler.isConnect()) {
+//			proxyFrontendHandler.createBootstrap(inboundChannel, host, port);
+//		}
 	}
 
 	@Override
