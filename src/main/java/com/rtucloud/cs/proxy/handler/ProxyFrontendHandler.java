@@ -140,18 +140,18 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
 
                     } else {
                         log.debug("连接目标服务器失败");
-//                        if (inboundChannel.isActive()) {
-//                            log.info("Reconnect");
-//                            final EventLoop loop = future.channel().eventLoop();
-//                            loop.schedule(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    ProxyFrontendHandler.this.createBootstrap(inboundChannel, host, port);
-//                                }
-//                            }, appConfig.getInterval(), TimeUnit.MILLISECONDS);
-//                        } else {
-//                            log.info("notActive");
-//                        }
+                        if (inboundChannel.isActive()) {
+                            log.info("Reconnect");
+                            final EventLoop loop = future.channel().eventLoop();
+                            loop.schedule(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ProxyFrontendHandler.this.createBootstrap(inboundChannel, host, port);
+                                }
+                            }, appConfig.getInterval(), TimeUnit.MILLISECONDS);
+                        } else {
+                            log.info("notActive");
+                        }
                     }
                     inboundChannel.read();
                 }
