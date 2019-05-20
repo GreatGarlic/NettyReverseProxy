@@ -25,7 +25,7 @@ public class BackendDecode extends ByteToMessageDecoder {
 		if (!in.isReadable()) {
 			return;
 		}
-		LOGGER.info(String.format("[%d]收到数据:%s",  ByteBufUtil.hexDump(in)));
+		LOGGER.info(String.format("[%s]收到数据:%s",  (ctx.channel().remoteAddress()).toString(), ByteBufUtil.hexDump(in)));
 		byte[] ss = new byte[in.readableBytes()];
 
 		in.readBytes(ss);
