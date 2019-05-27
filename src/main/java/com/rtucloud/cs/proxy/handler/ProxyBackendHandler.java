@@ -1,17 +1,14 @@
 package com.rtucloud.cs.proxy.handler;
 
-import com.rtucloud.cs.proxy.StartProgram;
-import io.netty.handler.timeout.IdleState;
-import io.netty.handler.timeout.IdleStateEvent;
-import io.netty.util.Attribute;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ProxyBackendHandler extends SimpleChannelInboundHandler<byte[]> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProxyBackendHandler.class);
@@ -46,16 +43,14 @@ public class ProxyBackendHandler extends SimpleChannelInboundHandler<byte[]> {
     @Override
     public void channelRead0(final ChannelHandlerContext ctx, byte[] msg) throws Exception {
         LOGGER.info("服务器返回消息");
-        /**
-         * 接收目标服务器发送来的数据并打印 然后把数据写入代理服务器和客户端的通道里
-         */
-        // 通过inboundChannel向客户端写入数据
+        //接收目标服务器发送来的数据并打印 然后把数据写入代理服务器和客户端的通道里
+        //通过inboundChannel向客户端写入数据
         inboundChannel.writeAndFlush(msg).addListener(new ChannelFutureListener() {
             @Override
             public void operationComplete(ChannelFuture future) throws Exception {
-                if (!future.isSuccess())
+                if (!future.isSuccess()) {
                     future.channel().close();
-
+                }
             }
         });
     }
