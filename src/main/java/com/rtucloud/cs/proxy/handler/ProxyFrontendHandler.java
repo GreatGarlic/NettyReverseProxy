@@ -168,12 +168,15 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
     public boolean isConnect() {
         return frontendConnectStatus;
     }
+
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof IdleStateEvent) {
             IdleStateEvent e = (IdleStateEvent) evt;
             if (e.state() == IdleState.ALL_IDLE) {
                 log.debug("空闲时间到，关闭连接.");
+                frontendConnectStatus = false;
+                allChannels.close();
                 ctx.channel().close();
             }
         }
