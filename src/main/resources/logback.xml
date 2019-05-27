@@ -7,7 +7,6 @@
         <Target>System.out</Target>
         <encoder>
             <pattern>%d-%c-%M-%t-%p: %m%n</pattern>
-            <!--<pattern>%d-%replace(%caller{1}){'\r\n',''}-%t-%p: %m%n</pattern>-->
         </encoder>
     </appender>
 
@@ -62,20 +61,16 @@
     </appender>
 
     <!--解码器异步输出 -->
-<!--    <appender name="CodecAsyncFile"-->
-<!--              class="net.logstash.logback.appender.LoggingEventAsyncDisruptorAppender">-->
-<!--        <appender-ref ref="CODEC"/>-->
-<!--    </appender>-->
+    <appender name="CodecAsyncFile"
+              class="net.logstash.logback.appender.LoggingEventAsyncDisruptorAppender">
+        <appender-ref ref="CODEC"/>
+    </appender>
 
-    <!--编解码器日志拦截-->
-    <!--<logger name="com.rtucloud.gateway.device.manager.codec">-->
-    <!--<appender-ref ref="CODEC"/>-->
-    <!--</logger>-->
 
     <!-- 编解码器日志拦截 -->
-<!--    <logger name="com.rtucloud.cs.proxy.codec">-->
-<!--        <appender-ref ref="CodecAsyncFile"/>-->
-<!--    </logger>-->
+    <logger name="com.rtucloud.cs.proxy.codec">
+        <appender-ref ref="CodecAsyncFile"/>
+    </logger>
 
 
     <!--所有日志异步输出 -->

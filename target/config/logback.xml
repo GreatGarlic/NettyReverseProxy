@@ -67,10 +67,6 @@
         <appender-ref ref="CODEC"/>
     </appender>
 
-    <!--编解码器日志拦截-->
-    <!--<logger name="com.rtucloud.gateway.device.manager.codec">-->
-    <!--<appender-ref ref="CODEC"/>-->
-    <!--</logger>-->
 
     <!-- 编解码器日志拦截 -->
     <logger name="com.rtucloud.cs.proxy.codec">
@@ -97,9 +93,9 @@
 
     <root level="DEBUG">
         <appender-ref ref="AsyncFile"/>
-        <!--        <appender-ref ref="CONSOLE"/>-->
-        <!--        <appender-ref ref="FILE"/>-->
-        <!--        <appender-ref ref="ERRORFILE"/>-->
+<!--                <appender-ref ref="CONSOLE"/>-->
+<!--                <appender-ref ref="FILE"/>-->
+<!--                <appender-ref ref="ERRORFILE"/>-->
 
     </root>
 
