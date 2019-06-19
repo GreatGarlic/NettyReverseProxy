@@ -9,6 +9,8 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.group.ChannelGroup;
+import io.netty.channel.group.ChannelGroupFuture;
+import io.netty.channel.group.ChannelGroupFutureListener;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -22,7 +24,6 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -33,7 +34,9 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
 
     private static final Logger log = LoggerFactory.getLogger(ProxyFrontendHandler.class);
     private static final EventLoopGroup proxyGroup = new NioEventLoopGroup();
-    // 代理服务器和目标服务器之间的通道（从代理服务器出去所以是outbound过境）
+    /**
+     * 代理服务器和目标服务器之间的通道（从代理服务器出去所以是outbound过境）
+     */
     private ChannelGroup allChannels = new DefaultChannelGroup(ImmediateEventExecutor.INSTANCE);
 
     @Autowired
@@ -67,9 +70,8 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
 
         List<BackendServerInfo> backendServerInfoList = backendServerRepository.selectList(null);
 
-        /**
-         * 客户端和代理服务器的连接通道 入境的通道
-         */
+
+        //客户端和代理服务器的连接通道 入境的通道
         Channel inboundChannel = ctx.channel();
 
         for (BackendServerInfo backendServerInfo : backendServerInfoList) {
@@ -89,15 +91,13 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
     public void channelRead0(final ChannelHandlerContext ctx, byte[] msg) throws Exception {
 
         log.info("客户端消息");
-//        allChannels.writeAndFlush(msg).addListener(new ChannelGroupFutureListener() {
-//            @Override
-//            public void operationComplete(ChannelGroupFuture future) throws Exception {
-//                //防止出现发送不成功造成的永久不读取消息的错误.
-//                ctx.channel().read();
-//            }
-//        });
-        allChannels.writeAndFlush(msg);
-        ctx.channel().read();
+        allChannels.writeAndFlush(msg).addListener(new ChannelGroupFutureListener() {
+            @Override
+            public void operationComplete(ChannelGroupFuture future) throws Exception {
+                //防止出现发送不成功造成的永久不读取消息的错误.
+                ctx.channel().read();
+            }
+        });
     }
 
     @Override
@@ -162,12 +162,16 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
     public boolean isConnect() {
         return frontendConnectStatus;
     }
+
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof IdleStateEvent) {
             IdleStateEvent e = (IdleStateEvent) evt;
             if (e.state() == IdleState.ALL_IDLE) {
                 log.debug("空闲时间到，关闭连接.");
+                frontendConnectStatus = false;
+                allChannels.close();
+                ctx.channel().close();
 //                ctx.channel().close();
                 closeOnFlush(ctx.channel());
             }

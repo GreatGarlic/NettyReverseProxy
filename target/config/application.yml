@@ -1,6 +1,6 @@
 app-config:
   #尝试重连间隔时间（单位:毫秒）
-  interval: 1000
+  interval: 5000
 server:
     # WebServer bind port
     port: ${web_port:9010}
