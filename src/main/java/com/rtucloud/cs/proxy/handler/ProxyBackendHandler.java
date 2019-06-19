@@ -65,7 +65,8 @@ public class ProxyBackendHandler extends SimpleChannelInboundHandler<byte[]> {
             @Override
             public void operationComplete(ChannelFuture future) throws Exception {
                 if (!future.isSuccess()) {
-                    future.channel().close();
+                    closeOnFlush(future.channel());
+//                    future.channel().close();
                 }
             }
         });
@@ -82,7 +83,8 @@ public class ProxyBackendHandler extends SimpleChannelInboundHandler<byte[]> {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         LOGGER.error("发生异常：", cause);
-        ctx.channel().close();
+//        ctx.channel().close();
+        closeOnFlush(ctx.channel());
     }
 
 

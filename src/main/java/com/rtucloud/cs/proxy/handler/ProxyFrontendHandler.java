@@ -170,8 +170,7 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
             if (e.state() == IdleState.ALL_IDLE) {
                 log.debug("空闲时间到，关闭连接.");
                 frontendConnectStatus = false;
-                allChannels.close();
-                ctx.channel().close();
+               allChannels.close();
 //                ctx.channel().close();
                 closeOnFlush(ctx.channel());
             }
