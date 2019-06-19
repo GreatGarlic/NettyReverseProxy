@@ -7,13 +7,7 @@ import com.rtucloud.cs.proxy.dao.repository.BackendServerRepository;
 import com.rtucloud.cs.proxy.server.BackendPipeline;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.EventLoop;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.*;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -122,6 +116,7 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
     public void createBootstrap(final Channel inboundChannel, final String host, final int port) {
         try {
             Bootstrap bootstrap = new Bootstrap();
+            bootstrap.option(ChannelOption.SO_KEEPALIVE,true);
 
             bootstrap.group(proxyGroup);
 
@@ -173,7 +168,8 @@ public class ProxyFrontendHandler extends SimpleChannelInboundHandler<byte[]> {
             IdleStateEvent e = (IdleStateEvent) evt;
             if (e.state() == IdleState.ALL_IDLE) {
                 log.debug("空闲时间到，关闭连接.");
-                ctx.channel().close();
+//                ctx.channel().close();
+                closeOnFlush(ctx.channel());
             }
         }
     }

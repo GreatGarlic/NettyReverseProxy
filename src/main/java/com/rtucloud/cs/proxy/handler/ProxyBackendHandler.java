@@ -1,6 +1,7 @@
 package com.rtucloud.cs.proxy.handler;
 
 import com.rtucloud.cs.proxy.StartProgram;
+import io.netty.buffer.Unpooled;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.Attribute;
@@ -36,6 +37,14 @@ public class ProxyBackendHandler extends SimpleChannelInboundHandler<byte[]> {
         LOGGER.info("目标服务器地址：" + ctx.channel().remoteAddress());
     }
 
+    /**
+     * Closes the specified channel after all queued write requests are flushed.
+     */
+    public static void closeOnFlush(Channel ch) {
+        if (ch.isActive()) {
+            ch.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
+        }
+    }
     /**
      * msg是从目标服务器返回的消息
      *
@@ -84,7 +93,8 @@ public class ProxyBackendHandler extends SimpleChannelInboundHandler<byte[]> {
                     return;
                 }
                 LOGGER.debug("空闲时间到，关闭连接.");
-                ctx.channel().close();
+//                ctx.channel().close();
+                closeOnFlush(ctx.channel());
             }
         }
     }
